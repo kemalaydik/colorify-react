@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Pokegame from './Pokegame';
+import RandomNumber from './RandomNumber';
 
 class App extends Component {
 	render() {
 		return (
 			<>
-				<Pokegame />
+				<RandomNumber />
 			</>
 		);
 	}
