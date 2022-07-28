@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import RandomNumber from './RandomNumber';
+import Dice from './Dice';
 
 class App extends Component {
 	render() {
 		return (
 			<>
-				<RandomNumber />
+				<Dice />
 			</>
 		);
 	}
