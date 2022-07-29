@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import Dice from './Dice';
+import Lottery from './Lottery';
 
-class App extends Component {
+export default class App extends Component {
 	render() {
 		return (
-			<>
-				<Dice />
-			</>
+			<div className='container flex justify-center gap-2 mx-auto my-3'>
+				<Lottery className='' numBalls={3} maxCount={409} />
+			</div>
 		);
 	}
 }
-
-export default App;
