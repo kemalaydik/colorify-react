@@ -1,43 +1,52 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Card from './Card';
+import JokeList from './JokeList';
 
 export default class App extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { deckId: '', cards: [], rotations: Array.from({ length: 52 }, () => ~~(Math.random() * 40)) };
-		this.handleDraw = this.handleDraw.bind(this);
+		this.state = { jokes: [] };
+		this.handleGet = this.handleGet.bind(this);
 	}
 
-	componentDidMount() {
-		const getCard = async () => {
+	async componentDidMount() {
+		try {
 			const {
-				data: { deck_id: deckId }
-			} = await axios.get('https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1');
-			this.setState({ deckId: deckId });
-		};
-		getCard();
+				data: { results }
+			} = await axios.get('https://icanhazdadjoke.com/search?limit=10', { headers: { Accept: 'application/json' } });
+			this.setState(st => ({ jokes: st.jokes.concat(results) }));
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
-	async handleDraw() {
-		const { data } = await axios.get(`https://www.deckofcardsapi.com/api/deck/${this.state.deckId}/draw/?count=1`);
-		if (data.success) this.setState({ cards: [...this.state.cards, data.cards[0].image] });
-		else alert('bitti');
+	async handleGet() {
+		try {
+			const {
+				data: { results }
+			} = await axios.get('https://icanhazdadjoke.com/search?limit=10', { headers: { Accept: 'application/json' } });
+			this.setState(st => ({ jokes: st.jokes.concat(results) }));
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	render() {
 		return (
-			<>
-				<button onClick={this.handleDraw} className='block px-4 py-2 mx-auto mt-3 font-bold text-white bg-blue-500 rounded hover:bg-blue-700'>
-					Pick a Card
-				</button>
-				<div className='relative flex justify-center'>
-					{this.state.cards.map((e, i) => {
-						const className = `block mx-auto absolute translate-x-4 skew-y-3 rotate-[${this.state.rotations[i]}deg] mt-6`;
-						return <img key={i} className={className} src={e} alt={e} />;
-					})}
+			<div className='flex items-center justify-center h-screen min-h-screen bgColor'>
+				<div className='flex w-5/6 h-4/6'>
+					<div className='flex flex-col items-center justify-center h-full scale-110 bg-blue-500 basis-1/3'>
+						<h1 className='mb-3 font-bold'>
+							Dad <span className='font-thin'>Jokes</span>
+						</h1>
+						<p className='mb-3 text-9xl'>🤣</p>
+						<button onClick={this.handleGet} className='px-4 py-2 font-bold text-gray-500 rounded bgColor hover:scale-105 hover:transition-all'>
+							Button
+						</button>
+					</div>
+					<JokeList jokes={this.state.jokes} />
 				</div>
-			</>
+			</div>
 		);
 	}
 }
