@@ -6,7 +6,7 @@ export default class JokeList extends Component {
 		return (
 			<div className='w-full h-full px-2 py-5 pl-8 overflow-scroll text-sm divide-y-2 divide-gray-300 bg-slate-200 divide-solid'>
 				{this.props.jokes.map(e => (
-					<Joke joke={e.joke} key={e.id} />
+					<Joke joke={e.joke} key={e.id} id={e.id} score={e.score} upVote={() => this.props.handleVote(e.id, 1)} downVote={() => this.props.handleVote(e.id, -1)} />
 				))}
 			</div>
 		);
