@@ -1,33 +1,21 @@
-import React, { Component } from 'react';
-import { Route, Routes, NavLink } from 'react-router-dom';
-import Fish from './Fish';
-import Soda from './Soda';
-import Chips from './Chips';
-import VendingMachine from './VendingMachine';
+import { Routes, Route, useParams, useLocation } from 'react-router-dom';
+import Dogs from './Dogs';
+import Nav from './nav';
+import Home from './home';
+const App = () => {
+	const location = useLocation();
+	console.log(location);
+	return (
+		<div className='min-h-screen bg-gradient-to-br from-gray-200 via-orange-100 to-gray-300'>
+			<Nav />
+			<Routes>
+				<Route path='/'>
+					<Route index element={<Home />} />
+					<Route path=':dogs' element={<Dogs />} />
+				</Route>
+			</Routes>
+		</div>
+	);
+};
 
-export default class App extends Component {
-	render() {
-		return (
-			<>
-				<nav className='flex justify-evenly'>
-					<NavLink className={({ isActive }) => isActive && 'pata'} to='fish'>
-						Fish
-					</NavLink>
-					<NavLink className={({ isActive }) => isActive && 'pata'} to='soda'>
-						Soda
-					</NavLink>
-					<NavLink className={({ isActive }) => isActive && 'pata'} to='chips'>
-						Chips
-					</NavLink>
-				</nav>
-				<Routes>
-					<Route path='/' element={<VendingMachine />}>
-						<Route path='fish' element={<Fish />} />
-						<Route path='soda' element={<Soda />} />
-						<Route path='chips' element={<Chips />} />
-					</Route>
-				</Routes>
-			</>
-		);
-	}
-}
+export default App;
