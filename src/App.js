@@ -1,7 +1,20 @@
+import { useState, useEffect } from 'react';
+
 const App = () => {
-	const location = useLocation();
-	console.log(location);
-	return <></>;
+	const [color, setColor] = useState(`yellow`);
+
+	useEffect(() => {
+		const interval = setTimeout(() => {
+			setColor(color === `red` ? `yellow` : `red`);
+		}, 1000);
+		return () => clearTimeout(interval);
+	}, [color]);
+
+	return (
+		<>
+			<h1 className={`text-4xl text-[${color}]`}>zzxczc</h1>
+		</>
+	);
 };
 
 export default App;
