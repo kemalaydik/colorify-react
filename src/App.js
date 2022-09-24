@@ -1,18 +1,9 @@
-import { useState, useEffect } from 'react';
-
+import Palette from './Palette';
+import seedColors from './seedColors';
 const App = () => {
-	const [color, setColor] = useState(`yellow`);
-
-	useEffect(() => {
-		const interval = setTimeout(() => {
-			setColor(color === `red` ? `yellow` : `red`);
-		}, 1000);
-		return () => clearTimeout(interval);
-	}, [color]);
-
 	return (
 		<>
-			<h1 className={`text-4xl text-[${color}]`}>zzxczc</h1>
+			<Palette {...seedColors[1]} />
 		</>
 	);
 };
