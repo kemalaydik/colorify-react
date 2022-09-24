@@ -3,7 +3,7 @@ import seedColors from './seedColors';
 const App = () => {
 	return (
 		<>
-			<Palette {...seedColors[1]} />
+			<Palette {...seedColors[3]} />
 		</>
 	);
 };

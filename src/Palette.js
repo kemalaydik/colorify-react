@@ -4,7 +4,7 @@ import ColorCard from './ColorCard';
 export default ({ paletteName, id, emoji, colors }) => (
 	<div className='flex flex-col min-h-screen'>
 		<header className='h-[10vh]'>asda</header>
-		<div className='grid-cols-4 grow md:grid'>
+		<div className='grid grid-cols-1 md:grid-cols-4 grow'>
 			{colors.map(color => (
 				<ColorCard key={color.name} {...color} />
 			))}
