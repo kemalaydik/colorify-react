@@ -29,7 +29,7 @@ export default ({ paletteName, id, emoji, shades }) => {
 				<LightModeSharpIcon color='warning' fontSize='large' />
 				<Slider aria-label='shades' defaultValue={500} valueLabelDisplay='on' step={100} marks={marks} min={100} max={900} onChange={el => setLevel(el.target.value)} />
 				<NightlightIcon fontSize='large' />
-				<SelectColor changeColor={changeColor} colorMode={colorMode} />
+				<SelectColor changeColor={changeColor} />
 			</header>
 			<div className='grid grid-cols-1 mt-0 md:grid-cols-4 grow'>
 				{shades[level].map(color => (

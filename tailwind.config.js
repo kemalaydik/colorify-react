@@ -4,7 +4,7 @@ module.exports = {
 	theme: {
 		extend: {
 			animation: {
-				grow: 'grow .5s ease-in-out 1s'
+				grow: 'grow 1s ease-in-out .5s'
 			}
 		},
 		keyframes: {
