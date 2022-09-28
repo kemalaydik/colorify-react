@@ -5,8 +5,10 @@ import Slider from '@mui/material/Slider';
 import LightModeSharpIcon from '@mui/icons-material/LightModeSharp';
 import NightlightIcon from '@mui/icons-material/Nightlight';
 import SelectColor from './SelectColor';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useParams } from 'react-router-dom';
 
-export default ({ paletteName, id, emoji, shades }) => {
+export default ({ paletteName, emoji, shades }) => {
 	const [level, setLevel] = useState(500);
 	const [colorMode, setColorMode] = useState('colorHex');
 
@@ -23,20 +25,25 @@ export default ({ paletteName, id, emoji, shades }) => {
 		{ value: 800, label: '800' },
 		{ value: 900, label: '900' }
 	];
+
+	const matches = useMediaQuery('(min-width:800px)');
+
+	const params = useParams();
+
 	return (
 		<div className='flex flex-col min-h-screen'>
-			<header className='flex items-center gap-5 h-[6vh] bg-gray-300 p-20 border-b-2 border-b-black'>
+			<header className='flex items-center h-24 gap-5 pt-16 pb-12 bg-gray-300 md:px-16'>
 				<LightModeSharpIcon color='warning' fontSize='large' />
-				<Slider aria-label='shades' defaultValue={500} valueLabelDisplay='on' step={100} marks={marks} min={100} max={900} onChange={el => setLevel(el.target.value)} />
+				<Slider aria-label='shades' defaultValue={500} valueLabelDisplay='on' step={100} marks={matches ? marks : true} min={100} max={900} onChange={el => setLevel(el.target.value)} />
 				<NightlightIcon fontSize='large' />
 				<SelectColor changeColor={changeColor} />
 			</header>
-			<div className='grid grid-cols-1 mt-0 md:grid-cols-4 grow'>
+			<div className='grid grid-cols-1 gap-4 m-3 md:grid-cols-4 grow'>
 				{shades[level].map(color => (
 					<ColorCard key={color.name} {...color} colorMode={color[colorMode]} />
 				))}
 			</div>
-			<footer className='h-[8vh] bg-orange-400 text-3xl flex justify-around items-center text-white border-t-black border-t-2 font-bold'>
+			<footer className='h-[8vh] bg-gray-700 text-3xl flex justify-around items-center text-white border-t-black border-t-1 font-bold'>
 				<p>{paletteName}</p>
 				<p>{emoji}</p>
 			</footer>

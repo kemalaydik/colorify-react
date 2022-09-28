@@ -13,7 +13,7 @@ function generateColor(color, name, shade) {
 		colorRgb: chroma(color).css(),
 		colorRgba: chroma(color).alpha(1).css('rgba'),
 		colorHsl: chroma(color).css('hsl'),
-		overlayTextColorBool: chroma(color).luminance() < 0.5 ? true : false
+		overlayTextColorBool: chroma(color).luminance() < 0.3 ? true : false
 	};
 }
 
