@@ -7,8 +7,13 @@ import NightlightIcon from '@mui/icons-material/Nightlight';
 import SelectColor from './SelectColor';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useParams } from 'react-router-dom';
+import seedColors from './seedColors';
+import generatePalette from './colorHelpers';
 
-export default ({ paletteName, emoji, shades }) => {
+export default () => {
+	const findId = id => seedColors.find(e => e.id === id);
+	const { id } = useParams();
+	const { paletteName, emoji, shades } = generatePalette(findId(id));
 	const [level, setLevel] = useState(500);
 	const [colorMode, setColorMode] = useState('colorHex');
 
@@ -27,8 +32,6 @@ export default ({ paletteName, emoji, shades }) => {
 	];
 
 	const matches = useMediaQuery('(min-width:800px)');
-
-	const params = useParams();
 
 	return (
 		<div className='flex flex-col min-h-screen'>
