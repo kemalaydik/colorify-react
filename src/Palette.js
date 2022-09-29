@@ -1,16 +1,19 @@
 /* eslint-disable import/no-anonymous-default-export */
 import ColorCard from './ColorCard';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Slider from '@mui/material/Slider';
 import LightModeSharpIcon from '@mui/icons-material/LightModeSharp';
 import NightlightIcon from '@mui/icons-material/Nightlight';
 import SelectColor from './SelectColor';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useParams } from 'react-router-dom';
-import seedColors from './seedColors';
+// import seedColors from './seedColors';
 import generatePalette from './colorHelpers';
+import PaletteIcon from '@mui/icons-material/Palette';
+import { Link } from 'react-router-dom';
 
 export default () => {
+	const seedColors = useContext(UserContext);
 	const findId = id => seedColors.find(e => e.id === id);
 	const { id } = useParams();
 	const { paletteName, emoji, shades } = generatePalette(findId(id));
@@ -36,6 +39,9 @@ export default () => {
 	return (
 		<div className='flex flex-col min-h-screen'>
 			<header className='flex items-center h-24 gap-5 pt-16 pb-12 bg-gray-300 md:px-16'>
+				<Link to='/'>
+					<PaletteIcon fontSize='large' />
+				</Link>
 				<LightModeSharpIcon color='warning' fontSize='large' />
 				<Slider aria-label='shades' defaultValue={500} valueLabelDisplay='on' step={100} marks={matches ? marks : true} min={100} max={900} onChange={el => setLevel(el.target.value)} />
 				<NightlightIcon fontSize='large' />
