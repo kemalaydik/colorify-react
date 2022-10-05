@@ -7,11 +7,10 @@ import NightlightIcon from '@mui/icons-material/Nightlight';
 import SelectColor from './SelectColor';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useParams } from 'react-router-dom';
-// import seedColors from './seedColors';
+import { UserContext } from './App';
 import generatePalette from './colorHelpers';
-import PaletteIcon from '@mui/icons-material/Palette';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link } from 'react-router-dom';
-
 export default () => {
 	const seedColors = useContext(UserContext);
 	const findId = id => seedColors.find(e => e.id === id);
@@ -38,12 +37,24 @@ export default () => {
 
 	return (
 		<div className='flex flex-col min-h-screen'>
-			<header className='flex items-center h-24 gap-5 pt-16 pb-12 bg-gray-300 md:px-16'>
-				<Link to='/'>
-					<PaletteIcon fontSize='large' />
+			<header className='flex justify-end items-center h-24 gap-5 pt-16 pb-12 bg-gray-300/60 md:px-4'>
+				<Link to='/' className='text-blue-600 mr-auto'>
+					<ArrowBackIcon sx={{ fontSize: 72 }} />
 				</Link>
 				<LightModeSharpIcon color='warning' fontSize='large' />
-				<Slider aria-label='shades' defaultValue={500} valueLabelDisplay='on' step={100} marks={matches ? marks : true} min={100} max={900} onChange={el => setLevel(el.target.value)} />
+				<Slider
+					aria-label='shades'
+					defaultValue={500}
+					valueLabelDisplay='on'
+					step={100}
+					marks={matches ? marks : true}
+					min={100}
+					max={900}
+					onChange={el => setLevel(el.target.value)}
+					sx={{
+						width: 500
+					}}
+				/>
 				<NightlightIcon fontSize='large' />
 				<SelectColor changeColor={changeColor} />
 			</header>
@@ -52,7 +63,7 @@ export default () => {
 					<ColorCard key={color.name} {...color} colorMode={color[colorMode]} />
 				))}
 			</div>
-			<footer className='h-[8vh] bg-gray-700 text-3xl flex justify-around items-center text-white border-t-black border-t-1 font-bold'>
+			<footer className='h-[8vh] bg-gray-700/75 text-3xl flex justify-around items-center text-white border-t-black border-t-1 font-bold'>
 				<p>{paletteName}</p>
 				<p>{emoji}</p>
 			</footer>

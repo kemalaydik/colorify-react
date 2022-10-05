@@ -29,4 +29,7 @@ function generatePalette({ paletteName, id, emoji, colors }) {
 	return { paletteName, id, emoji, shades };
 }
 
+const generateRndNumber = () => ~~(Math.random() * 255);
+export const generateRndColor = () => ({ r: generateRndNumber(), g: generateRndNumber(), b: generateRndNumber(), a: Math.random() });
+
 export default generatePalette;
