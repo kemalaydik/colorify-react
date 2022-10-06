@@ -1,14 +1,13 @@
 import { useState, useContext } from 'react';
-import { SketchPicker } from 'react-color';
-import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import { generateRndColor } from './colorHelpers';
 import { Link } from 'react-router-dom';
 import { UserContext } from './App';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import ColorPicker from './ColorPicker';
+import DragDrop from './DragDrop';
 
 import { Menu as MenuIcon, ChevronLeft as ChevronLeftIcon } from '@mui/icons-material';
-import { Button, ButtonGroup, IconButton, Box, Drawer, Toolbar, AppBar as MuiAppBar, TextField } from '@mui/material';
+import { Button, IconButton, Box, Drawer, Toolbar, AppBar as MuiAppBar, TextField } from '@mui/material';
 
 const drawerWidth = 300;
 
@@ -50,21 +49,16 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 	display: 'flex',
 	alignItems: 'center',
 	padding: theme.spacing(0, 1),
-	// necessary for content to be below app bar
 	...theme.mixins.toolbar,
 	justifyContent: 'flex-end'
 }));
 
 export default function New() {
 	const [open, setOpen] = useState(true);
-	const [color, setColor] = useState({ r: '0', g: '0', b: '0', a: '1' });
+	const [color, setColor] = useState(generateRndColor());
 	const [name, setName] = useState('');
 	const [palette, setPalette] = useState([]);
 	const seedColors = useContext(UserContext);
-
-	const handleChange = color => {
-		setColor({ ...color.rgb });
-	};
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -74,7 +68,12 @@ export default function New() {
 		setOpen(false);
 	};
 
-	const onDragEnd = () => console.log(23);
+	const handleColor = color => setColor(color);
+
+	const handleSubmit = e => {
+		e.preventDefault();
+		setPalette([...palette, { name, color }]);
+	};
 
 	return (
 		<Box sx={{ display: 'flex' }}>
@@ -96,13 +95,13 @@ export default function New() {
 			<Drawer
 				sx={{
 					width: drawerWidth,
-
 					flexShrink: 0,
 					'& .MuiDrawer-paper': {
 						width: drawerWidth,
 						boxSizing: 'border-box',
 						alignItems: 'center',
-						gap: 2
+						gap: 2,
+						backgroundColor: 'D3D3D3'
 					}
 				}}
 				variant='persistent'
@@ -114,49 +113,17 @@ export default function New() {
 						<ChevronLeftIcon />
 					</IconButton>
 				</DrawerHeader>
-				<ButtonGroup variant='text' aria-label='outlined button group' size='small'>
-					<Button>Create Palette</Button>
-					<Button onClick={() => setColor(generateRndColor())}>Random Color</Button>
-				</ButtonGroup>
-				<SketchPicker color={color} onChange={handleChange} />
-
-				<TextField id='outlined-basic' label='Color name' variant='outlined' value={name} onChange={e => setName(e.target.value)} />
-				<Button variant='contained' color='primary' onClick={() => setPalette([...palette, { name, color }])}>
-					Add Color
-				</Button>
+				<ColorPicker handleColor={handleColor} />
+				<form onSubmit={handleSubmit} className='flex flex-col items-center gap-3 mt-3'>
+					<TextField id='outlined-basic' label='Color name' variant='outlined' value={name} onChange={e => setName(e.target.value)} required />
+					<Button variant='contained' color='primary' type='submit'>
+						Add Color
+					</Button>
+				</form>
 			</Drawer>
 			<Main open={open}>
 				<DrawerHeader />
-				<div>
-					<DragDropContext onDragEnd={onDragEnd}>
-						<Droppable droppableId='colorGrid'>
-							{provided => {
-								return (
-									<div {...provided.droppableProps} ref={provided.innerRef} className='flex flex-col gap-5' style={{}}>
-										{palette.map(({ name, color: { r, g, b, a } }, idx) => (
-											<Draggable draggableId={name} index={idx} key={name}>
-												{provided => {
-													return (
-														<div
-															ref={provided.innerRef}
-															{...provided.draggableProps}
-															{...provided.dragHandleProps}
-															className='w-40 h-40 border border-black rounded-lg hover:shadow-lg hover:scale-[1.05] ease-in-out duration-300'
-															style={{ backgroundColor: `rgba(${r}, ${g}, ${b}, ${a})` }}
-														>
-															{/* <p className='bottom-2 left-2 text-white'>{name}</p> */}
-														</div>
-													);
-												}}
-											</Draggable>
-										))}
-										{provided.placeholder}
-									</div>
-								);
-							}}
-						</Droppable>
-					</DragDropContext>
-				</div>
+				<DragDrop palette={palette} />
 			</Main>
 		</Box>
 	);
