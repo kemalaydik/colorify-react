@@ -8,7 +8,7 @@ export default function DragDrop({ palette }) {
 			<Droppable droppableId='colorGrid'>
 				{provided => {
 					return (
-						<div {...provided.droppableProps} ref={provided.innerRef} className='grid grid-cols-3 gap-5'>
+						<div {...provided.droppableProps} ref={provided.innerRef} className='flex flex-wrap gap-5'>
 							{palette.map(({ name, color }, idx) => (
 								<Draggable draggableId={name} index={idx} key={name}>
 									{provided => {

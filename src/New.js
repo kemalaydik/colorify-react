@@ -1,13 +1,13 @@
 import { useState, useContext } from 'react';
 import { styled } from '@mui/material/styles';
-import { generateRndColor } from './colorHelpers';
 import { Link } from 'react-router-dom';
 import { UserContext } from './App';
-import ColorPicker from './ColorPicker';
 import DragDrop from './DragDrop';
+import Sidebar from './Sidebar';
+import DrawerHeader from './DrawerHeader';
 
-import { Menu as MenuIcon, ChevronLeft as ChevronLeftIcon } from '@mui/icons-material';
-import { Button, IconButton, Box, Drawer, Toolbar, AppBar as MuiAppBar, TextField } from '@mui/material';
+import { Menu as MenuIcon } from '@mui/icons-material';
+import { Button, IconButton, Box, Toolbar, AppBar as MuiAppBar } from '@mui/material';
 
 const drawerWidth = 300;
 
@@ -45,18 +45,8 @@ const AppBar = styled(MuiAppBar, {
 	})
 }));
 
-const DrawerHeader = styled('div')(({ theme }) => ({
-	display: 'flex',
-	alignItems: 'center',
-	padding: theme.spacing(0, 1),
-	...theme.mixins.toolbar,
-	justifyContent: 'flex-end'
-}));
-
 export default function New() {
 	const [open, setOpen] = useState(true);
-	const [color, setColor] = useState(generateRndColor());
-	const [name, setName] = useState('');
 	const [palette, setPalette] = useState([]);
 	const seedColors = useContext(UserContext);
 
@@ -64,17 +54,11 @@ export default function New() {
 		setOpen(true);
 	};
 
-	const handleDrawerClose = () => {
-		setOpen(false);
+	const handlePalette = ({ name, color }) => {
+		setPalette(palette => [...palette, { name, color }]);
 	};
 
-	const handleColor = color => setColor(color);
-
-	const handleSubmit = e => {
-		e.preventDefault();
-		setPalette([...palette, { name, color }]);
-	};
-
+	const handleClose = () => setOpen(false);
 	return (
 		<Box sx={{ display: 'flex' }}>
 			<AppBar position='fixed' open={open}>
@@ -92,35 +76,7 @@ export default function New() {
 					</Button>
 				</Toolbar>
 			</AppBar>
-			<Drawer
-				sx={{
-					width: drawerWidth,
-					flexShrink: 0,
-					'& .MuiDrawer-paper': {
-						width: drawerWidth,
-						boxSizing: 'border-box',
-						alignItems: 'center',
-						gap: 2,
-						backgroundColor: 'D3D3D3'
-					}
-				}}
-				variant='persistent'
-				anchor='left'
-				open={open}
-			>
-				<DrawerHeader className='self-end'>
-					<IconButton onClick={handleDrawerClose}>
-						<ChevronLeftIcon />
-					</IconButton>
-				</DrawerHeader>
-				<ColorPicker handleColor={handleColor} />
-				<form onSubmit={handleSubmit} className='flex flex-col items-center gap-3 mt-3'>
-					<TextField id='outlined-basic' label='Color name' variant='outlined' value={name} onChange={e => setName(e.target.value)} required />
-					<Button variant='contained' color='primary' type='submit'>
-						Add Color
-					</Button>
-				</form>
-			</Drawer>
+			<Sidebar handlePalette={handlePalette} handleClose={handleClose} open={open} />
 			<Main open={open}>
 				<DrawerHeader />
 				<DragDrop palette={palette} />

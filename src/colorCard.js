@@ -23,7 +23,8 @@ export default ({ name, colorHex, overlayTextColorBool, colorMode }) => {
 				</p>
 				<button
 					className='absolute px-1 font-semibold text-white duration-300 ease-out -translate-x-1/2 -translate-y-1/2 opacity-0 bg-gray-500/25 group-hover:opacity-100 top-1/2 left-1/2'
-					onClick={handleClick}>
+					onClick={handleClick}
+				>
 					COPY
 				</button>
 				<button className='bottom-0 right-0 px-1' style={{ color: overlayTextColorBool ? `white` : `black` }}>
