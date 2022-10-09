@@ -54,10 +54,6 @@ export default function New() {
 		setOpen(true);
 	};
 
-	const handlePalette = ({ name, color }) => {
-		setPalette(palette => [...palette, { name, color }]);
-	};
-
 	const handleClose = () => setOpen(false);
 	return (
 		<Box sx={{ display: 'flex' }}>
@@ -76,10 +72,10 @@ export default function New() {
 					</Button>
 				</Toolbar>
 			</AppBar>
-			<Sidebar handlePalette={handlePalette} handleClose={handleClose} open={open} />
+			<Sidebar setPalette={setPalette} handleClose={handleClose} open={open} />
 			<Main open={open}>
 				<DrawerHeader />
-				<DragDrop palette={palette} />
+				<DragDrop palette={palette} setPalette={setPalette} />
 			</Main>
 		</Box>
 	);

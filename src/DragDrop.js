@@ -1,41 +1,36 @@
-import { useDrag } from 'react-dnd';
-import { Box } from '@mui/material';
+import { GridContextProvider, GridDropZone, GridItem, swap } from 'react-grid-dnd';
+import { useEffect, useState } from 'react';
+import chroma from 'chroma-js';
 
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { DndProvider } from 'react-dnd';
+export default function DragDrop({ palette, setPalette }) {
+	const [items, setItems] = useState(palette);
+	useEffect(() => {
+		console.log(1);
+		setItems(palette);
+	}, [palette]);
+	function onChange(sourceId, sourceIndex, targetIndex, targetId) {
+		const nextState = swap(items, sourceIndex, targetIndex);
+		setPalette(nextState);
+	}
 
-export default function DragDrop({ palette }) {
 	return (
-		<DndProvider backend={HTML5Backend}>/* Your Drag-and-Drop Application */</DndProvider>
-
-		// 	<DragDropContext onDragEnd={onDragEnd}>
-		// 		<Droppable droppableId='colorGrid'>
-		// 			{provided => {
-		// 				return (
-		// 					<div {...provided.droppableProps} ref={provided.innerRef} className='flex flex-wrap gap-5'>
-		// 						{palette.map(({ name, color }, idx) => (
-		// 							<Draggable draggableId={name} index={idx} key={name}>
-		// 								{provided => {
-		// 									return (
-		// 										<Box
-		// 											ref={provided.innerRef}
-		// 											{...provided.draggableProps}
-		// 											{...provided.dragHandleProps}
-		// 											className='w-40 h-40 border border-black rounded-lg hover:shadow-lg ease-in-out duration-300'
-		// 											sx={{ backgroundColor: color }}
-		// 										>
-		// 											<p className='bottom-2 left-2 text-white'>{name}</p>
-		// 										</Box>
-		// 									);
-		// 								}}
-		// 							</Draggable>
-		// 						))}
-		// 						{provided.placeholder}
-		// 					</div>
-		// 				);
-		// 			}}
-		// 		</Droppable>
-		// 	</DragDropContext>
-		// );
+		<GridContextProvider onChange={onChange}>
+			<GridDropZone id='items' boxesPerRow={~~(window.innerWidth / 500)} rowHeight={window.innerHeight / 4} style={{ height: '100vh' }}>
+				{items.map(({ name, color }) => (
+					<GridItem key={name}>
+						<div
+							style={{
+								width: '90%',
+								height: '90%',
+								backgroundColor: color
+							}}
+							className={`mx-auto border rounded-md border-black p-4 text-${chroma(color).luminance() < 0.3 ? 'white' : 'black'}`}
+						>
+							{name}
+						</div>
+					</GridItem>
+				))}
+			</GridDropZone>
+		</GridContextProvider>
 	);
 }
