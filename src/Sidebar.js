@@ -2,18 +2,17 @@ import { IconButton, Drawer } from '@mui/material';
 import { ChevronLeft as ChevronLeftIcon } from '@mui/icons-material';
 import ColorPicker from './ColorPicker';
 import { useState } from 'react';
-import { generateRndColor } from './colorHelpers';
 import DrawerHeader from './DrawerHeader';
 import ColorForm from './ColorForm';
 const drawerWidth = 300;
 
-export default function Sidebar({ handlePalette, handleClose, open }) {
+export default function Sidebar({ setPalette, handleClose, open }) {
 	const [color, setColor] = useState('');
 	const [name, setName] = useState('');
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		handlePalette({ name, color });
+		setPalette(palette => [...palette, { name, color }]);
 	};
 
 	return (

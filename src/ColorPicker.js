@@ -11,6 +11,10 @@ function ColorPicker({ setColor }) {
 		setColor(rndColor);
 	}, []);
 
+	useEffect(() => {
+		setColor(colorBG);
+	}, [colorBG]);
+
 	const handleColorChange = color => setColorBG(color.hex);
 	const change2RndColor = () => {
 		const rndColor = generateRndColor();
