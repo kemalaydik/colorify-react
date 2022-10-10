@@ -15,7 +15,7 @@ export default function DragDrop({ palette, setPalette }) {
 
 	return (
 		<GridContextProvider onChange={onChange}>
-			<GridDropZone id='items' boxesPerRow={~~(window.innerWidth / 500)} rowHeight={window.innerHeight / 4} style={{ height: '100vh' }}>
+			<GridDropZone id='items' boxesPerRow={~~(window.innerWidth / 100)} rowHeight={window.innerHeight / 4} style={{ height: '100vh' }}>
 				{items.map(({ name, color }) => (
 					<GridItem key={name}>
 						<div
