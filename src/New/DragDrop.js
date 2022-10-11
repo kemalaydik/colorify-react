@@ -5,7 +5,6 @@ import chroma from 'chroma-js';
 export default function DragDrop({ palette, setPalette }) {
 	const [items, setItems] = useState(palette);
 	useEffect(() => {
-		console.log(1);
 		setItems(palette);
 	}, [palette]);
 	function onChange(sourceId, sourceIndex, targetIndex, targetId) {
@@ -15,16 +14,16 @@ export default function DragDrop({ palette, setPalette }) {
 
 	return (
 		<GridContextProvider onChange={onChange}>
-			<GridDropZone id='items' boxesPerRow={~~(window.innerWidth / 100)} rowHeight={window.innerHeight / 4} style={{ height: '100vh' }}>
-				{items.map(({ name, color }) => (
+			<GridDropZone id='items' boxesPerRow={~~(window.innerWidth / 300)} rowHeight={window.innerHeight / 4} style={{ height: '100vh' }}>
+				{items.map(({ name, paletteColor }) => (
 					<GridItem key={name}>
 						<div
 							style={{
 								width: '90%',
 								height: '90%',
-								backgroundColor: color
+								backgroundColor: paletteColor
 							}}
-							className={`mx-auto border rounded-md border-black p-4 text-${chroma(color).luminance() < 0.3 ? 'white' : 'black'}`}
+							className={`mx-auto border rounded-md border-black p-4 text-${chroma(paletteColor).luminance() < 0.3 ? 'white' : 'black'}`}
 						>
 							{name}
 						</div>
