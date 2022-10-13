@@ -15,15 +15,15 @@ export default function DragDrop({ palette, setPalette }) {
 	return (
 		<GridContextProvider onChange={onChange}>
 			<GridDropZone id='items' boxesPerRow={~~(window.innerWidth / 300)} rowHeight={window.innerHeight / 4} style={{ height: '100vh' }}>
-				{items.map(({ name, paletteColor }) => (
+				{items.map(({ name, color }) => (
 					<GridItem key={name}>
 						<div
 							style={{
 								width: '90%',
 								height: '90%',
-								backgroundColor: paletteColor
+								backgroundColor: color
 							}}
-							className={`mx-auto border rounded-md border-black p-4 text-${chroma(paletteColor).luminance() < 0.3 ? 'white' : 'black'}`}
+							className={`mx-auto border rounded-md border-black p-4 text-${chroma(color).luminance() < 0.3 ? 'white' : 'black'}`}
 						>
 							{name}
 						</div>

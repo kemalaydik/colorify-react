@@ -4,15 +4,14 @@ import ColorPicker from './ColorPicker';
 import { useState } from 'react';
 import { DrawerHeader } from '../componentStyles';
 import ColorForm from './ColorForm';
-import { useEffect } from 'react';
 const drawerWidth = 300;
 
 export default function Sidebar({ setPalette, setOpen, open, palette }) {
-	const [paletteColor, setPaletteColor] = useState('');
+	const [color, setColor] = useState('');
 	const [name, setName] = useState('');
 
 	const handleSubmit = () => {
-		setPalette([...palette, { name, paletteColor }]);
+		setPalette([...palette, { name, color }]);
 	};
 
 	return (
@@ -37,7 +36,7 @@ export default function Sidebar({ setPalette, setOpen, open, palette }) {
 					<ChevronLeftIcon />
 				</IconButton>
 			</DrawerHeader>
-			<ColorPicker setPaletteColor={setPaletteColor} />
+			<ColorPicker setColor={setColor} />
 			<ColorForm setName={setName} handleSubmit={handleSubmit} name={name} palette={palette} />
 		</Drawer>
 	);

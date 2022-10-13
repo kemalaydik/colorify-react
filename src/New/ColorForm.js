@@ -13,7 +13,7 @@ export default function ({ handleSubmit, setName, name, palette }) {
 	};
 
 	return (
-		<form onSubmit={submitForm} className='flex flex-col items-center gap-3 mt-3'>
+		<form onSubmit={submitForm} className='flex flex-col items-center gap-5 mt-3'>
 			<TextField id='outlined-basic' label='Color name' variant='outlined' value={name} onChange={e => setName(e.target.value)} required />
 			<Button variant='contained' color='primary' type='submit'>
 				Add Color
