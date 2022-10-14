@@ -5,7 +5,6 @@ import chroma from 'chroma-js';
 export default function DragDrop({ palette, setPalette }) {
 	const [items, setItems] = useState(palette);
 	useEffect(() => {
-		console.log(1);
 		setItems(palette);
 	}, [palette]);
 	function onChange(sourceId, sourceIndex, targetIndex, targetId) {
@@ -15,7 +14,7 @@ export default function DragDrop({ palette, setPalette }) {
 
 	return (
 		<GridContextProvider onChange={onChange}>
-			<GridDropZone id='items' boxesPerRow={~~(window.innerWidth / 100)} rowHeight={window.innerHeight / 4} style={{ height: '100vh' }}>
+			<GridDropZone id='items' boxesPerRow={~~(window.innerWidth / 300)} rowHeight={window.innerHeight / 4} style={{ height: '100vh' }}>
 				{items.map(({ name, color }) => (
 					<GridItem key={name}>
 						<div

@@ -5,7 +5,7 @@ import { createContext } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import seedColors from './seedColors';
 import Home from './Home';
-import New from './New';
+import New from './New/New';
 import { ReactComponent as Logo } from './assets/logoKA.svg';
 export const UserContext = createContext();
 
