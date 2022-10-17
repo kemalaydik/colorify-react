@@ -7,7 +7,7 @@ import ColorForm from './ColorForm';
 const drawerWidth = 300;
 
 export default function Sidebar({ setPalette, setOpen, open, palette }) {
-	const [color, setColor] = useState('');
+	const [color, setColor] = useState('#000000');
 	const [name, setName] = useState('');
 
 	const handleSubmit = () => {
