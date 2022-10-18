@@ -12,10 +12,10 @@ export const UserContext = createContext();
 export default () => {
 	return (
 		<>
-			<UserContext.Provider value={seedColors}>
 				<Link to='/'>
-					<Logo className='w-12 h-12 fixed bottom-5 right-5' />
+					<Logo className='w-12 h-12 fixed bottom-5 right-5 z-50' />
 				</Link>
+			<UserContext.Provider value={seedColors}>
 				<div className='bg'></div>
 				<div className='bg bg2'></div>
 				<div className='bg bg3'></div>

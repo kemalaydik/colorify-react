@@ -1,4 +1,4 @@
-import { useState, memo } from 'react';
+import { useState, memo,useEffect } from 'react';
 import { SketchPicker } from 'react-color';
 import { generateRndColor } from '../colorHelpers';
 import { Button } from '@mui/material';
@@ -12,7 +12,7 @@ function ColorPicker({ setColor }) {
 		setBgColor(rndColor);
 		setColor(rndColor);
 	};
-
+useEffect(()=>setColor(bgColor))
 	return (
 		<>
 			<Button onClick={change2RndColor} variant='contained' color='secondary'>
