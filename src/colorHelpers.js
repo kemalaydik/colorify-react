@@ -26,6 +26,8 @@ function generatePalette({ paletteName, id, emoji, colors }) {
 		});
 		return obj;
 	}, {});
+	console.log(shades);
+
 	return { paletteName, id, emoji, shades };
 }
 
