@@ -8,7 +8,6 @@ import { Card } from 'flowbite-react';
 export default function Home() {
 	const seedColors = useContext(UserContext);
 	const navigate = useNavigate();
-	function handleClick() {}
 
 	return (
 		<>

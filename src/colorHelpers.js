@@ -2,7 +2,7 @@ import chroma from 'chroma-js';
 
 const levels = [100, 200, 300, 400, 500, 600, 700, 800, 900];
 
-function generateScale(color) {
+export function generateScale(color) {
 	return chroma.scale([chroma(color).brighten(2), color, chroma(color).darken(2)]).colors(9);
 }
 

@@ -30,7 +30,7 @@ export default ({ name, colorHex, overlayTextColorBool, colorMode }) => {
 				>
 					COPY
 				</button>
-				<Link to={`/palette/${id}/${name}`} className='bottom-0 right-0 px-1' style={{ color: overlayTextColorBool ? `white` : `black` }}>
+				<Link to={`/palette/${id}/${colorHex.slice(1)}`} className='bottom-0 right-0 px-1' style={{ color: overlayTextColorBool ? `white` : `black` }}>
 					MORE
 				</Link>
 				<div style={{ backgroundColor: colorHex }} className={`fixed top-0 left-0 duration-500 ease-in-out w-full h-full ${copied ? 'opacity-100 w-screen h-screen z-10' : 'opacity-0 -z-10'}`}></div>
